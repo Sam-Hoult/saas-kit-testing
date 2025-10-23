@@ -2,6 +2,13 @@ import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth/app/dashboard/')({
   component: RouteComponent,
+  beforeLoad: () => {
+    return {
+      breadcrumb: {
+        title: 'Home',
+      },
+    };
+  },
 })
 
 function RouteComponent() {
