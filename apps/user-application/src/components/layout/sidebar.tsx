@@ -18,11 +18,17 @@ const navigationItems: NavigationItem[] = [
     name: "Dashboard",
     icon: Home,
     href: "/app/dashboard",
+
   },
   {
     name: "Special",
     icon: Star,
     href: "/app/special",
+  },
+  {
+    name: "Table",
+    icon: Star,
+    href: "/app/dashboard/table",
   },
 ];
 

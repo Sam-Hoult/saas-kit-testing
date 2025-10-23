@@ -5,5 +5,7 @@ export const Route = createFileRoute('/_auth/app/special')({
 })
 
 function RouteComponent() {
-  return <div>Hey from special</div>
+  return <div>
+    <h1>Heading 1</h1>
+  </div>
 }

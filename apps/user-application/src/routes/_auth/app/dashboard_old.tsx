@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 
-export const Route = createFileRoute("/_auth")({
+export const Route = createFileRoute("/_auth/app/dashboard_old")({
   component: RouteComponent,
 });
 
@@ -74,7 +74,6 @@ function RouteComponent() {
 
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <Outlet />
-          {/* <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" /> */}
         </div>
       </SidebarInset>
     </SidebarProvider>

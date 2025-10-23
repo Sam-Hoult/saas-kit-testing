@@ -1,9 +1,11 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth/app/dashboard')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  return <div>Hey from dashboard/route.tsx</div>
+  return <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min">
+    <Outlet/>
+    </div>
 }
