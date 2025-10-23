@@ -3,11 +3,15 @@ import type { Config } from "drizzle-kit";
 const config: Config = {
   out: "./src/drizzle",
   schema: ["./src/drizzle/auth-schema.ts"],
-  dialect: "mysql",
+  dialect: "postgresql",
   dbCredentials: {
-    url: `mysql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}`,
+    host: process.env.DATABASE_HOST!,
+    user: process.env.DATABASE_USERNAME!,
+    password: process.env.DATABASE_PASSWORD!,
+    database: process.env.DATABASE_NAME!,
+    ssl: "require",
   },
-  tablesFilter: ["!auth_*"],
+  tablesFilter: ["!_cf_KV", "!auth_*"],
 };
 
 export default config satisfies Config;

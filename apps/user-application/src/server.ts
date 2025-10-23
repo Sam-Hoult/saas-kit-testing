@@ -13,6 +13,7 @@ export default {
       host: env.DATABASE_HOST,
       username: env.DATABASE_USERNAME,
       password: env.DATABASE_PASSWORD,
+      database: env.DATABASE_NAME,
     });
 
     setAuth({
@@ -25,7 +26,7 @@ export default {
       },
       adapter: {
         drizzleDb: db,
-        provider: "mysql",
+        provider: "pg",
       },
     });
     return handler.fetch(request, {

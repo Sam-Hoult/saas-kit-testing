@@ -9,9 +9,10 @@ export const auth = createBetterAuth({
       password: process.env.DATABASE_PASSWORD!,
       host: process.env.DATABASE_HOST!,
       username: process.env.DATABASE_USERNAME!,
+      database: process.env.DATABASE_NAME!,
     }),
     {
-      provider: "mysql",
+      provider: "pg",
     },
   ),
 });

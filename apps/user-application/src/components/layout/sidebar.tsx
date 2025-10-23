@@ -1,9 +1,10 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Home, Menu } from "lucide-react";
+import { Home, Menu, Star } from "lucide-react";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
 
 interface NavigationItem {
   name: string;
@@ -16,7 +17,12 @@ const navigationItems: NavigationItem[] = [
   {
     name: "Dashboard",
     icon: Home,
-    href: "/dashboard",
+    href: "/app/dashboard",
+  },
+  {
+    name: "Special",
+    icon: Star,
+    href: "/app/special",
   },
 ];
 
@@ -29,6 +35,13 @@ export function Sidebar({ className }: SidebarProps) {
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const { data: session } = authClient.useSession();
+  
+  const user = session?.user;
+  const fallbackText = user?.name
+    ? user.name.charAt(0).toUpperCase()
+    : user?.email?.charAt(0).toUpperCase() || "U";
 
   return (
     <>
@@ -104,9 +117,11 @@ export function Sidebar({ className }: SidebarProps) {
             </div>
             {!isCollapsed && (
               <div className="flex flex-col truncate">
-                <span className="text-sm font-medium text-foreground">User</span>
+                <span className="text-sm font-medium text-foreground">
+                  {user?.name}
+                </span>
                 <span className="text-xs text-muted-foreground truncate">
-                  user@example.com
+                  {user?.email}
                 </span>
               </div>
             )}

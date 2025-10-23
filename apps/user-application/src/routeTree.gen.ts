@@ -16,6 +16,8 @@ import { Route as StaticDocsIndexRouteImport } from './routes/_static/docs/index
 import { Route as AuthAppIndexRouteImport } from './routes/_auth/app/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
 import { Route as StaticDocsNameRouteImport } from './routes/_static/docs/$name'
+import { Route as AuthAppSpecialRouteImport } from './routes/_auth/app/special'
+import { Route as AuthAppDashboardRouteRouteImport } from './routes/_auth/app/dashboard/route'
 import { Route as AuthAppPolarSubscriptionsRouteImport } from './routes/_auth/app/polar/subscriptions'
 import { Route as AuthAppPolarPortalRouteImport } from './routes/_auth/app/polar/portal'
 import { Route as AuthAppPolarCheckoutSuccessRouteImport } from './routes/_auth/app/polar/checkout.success'
@@ -53,6 +55,16 @@ const StaticDocsNameRoute = StaticDocsNameRouteImport.update({
   path: '/docs/$name',
   getParentRoute: () => StaticRouteRoute,
 } as any)
+const AuthAppSpecialRoute = AuthAppSpecialRouteImport.update({
+  id: '/app/special',
+  path: '/app/special',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+const AuthAppDashboardRouteRoute = AuthAppDashboardRouteRouteImport.update({
+  id: '/app/dashboard',
+  path: '/app/dashboard',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
 const AuthAppPolarSubscriptionsRoute =
   AuthAppPolarSubscriptionsRouteImport.update({
     id: '/app/polar/subscriptions',
@@ -73,6 +85,8 @@ const AuthAppPolarCheckoutSuccessRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app/dashboard': typeof AuthAppDashboardRouteRoute
+  '/app/special': typeof AuthAppSpecialRoute
   '/docs/$name': typeof StaticDocsNameRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/app': typeof AuthAppIndexRoute
@@ -83,6 +97,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app/dashboard': typeof AuthAppDashboardRouteRoute
+  '/app/special': typeof AuthAppSpecialRoute
   '/docs/$name': typeof StaticDocsNameRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/app': typeof AuthAppIndexRoute
@@ -96,6 +112,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteRouteWithChildren
   '/_static': typeof StaticRouteRouteWithChildren
+  '/_auth/app/dashboard': typeof AuthAppDashboardRouteRoute
+  '/_auth/app/special': typeof AuthAppSpecialRoute
   '/_static/docs/$name': typeof StaticDocsNameRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_auth/app/': typeof AuthAppIndexRoute
@@ -108,6 +126,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/app/dashboard'
+    | '/app/special'
     | '/docs/$name'
     | '/api/auth/$'
     | '/app'
@@ -118,6 +138,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/app/dashboard'
+    | '/app/special'
     | '/docs/$name'
     | '/api/auth/$'
     | '/app'
@@ -130,6 +152,8 @@ export interface FileRouteTypes {
     | '/'
     | '/_auth'
     | '/_static'
+    | '/_auth/app/dashboard'
+    | '/_auth/app/special'
     | '/_static/docs/$name'
     | '/api/auth/$'
     | '/_auth/app/'
@@ -197,6 +221,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StaticDocsNameRouteImport
       parentRoute: typeof StaticRouteRoute
     }
+    '/_auth/app/special': {
+      id: '/_auth/app/special'
+      path: '/app/special'
+      fullPath: '/app/special'
+      preLoaderRoute: typeof AuthAppSpecialRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_auth/app/dashboard': {
+      id: '/_auth/app/dashboard'
+      path: '/app/dashboard'
+      fullPath: '/app/dashboard'
+      preLoaderRoute: typeof AuthAppDashboardRouteRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
     '/_auth/app/polar/subscriptions': {
       id: '/_auth/app/polar/subscriptions'
       path: '/app/polar/subscriptions'
@@ -222,6 +260,8 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthRouteRouteChildren {
+  AuthAppDashboardRouteRoute: typeof AuthAppDashboardRouteRoute
+  AuthAppSpecialRoute: typeof AuthAppSpecialRoute
   AuthAppIndexRoute: typeof AuthAppIndexRoute
   AuthAppPolarPortalRoute: typeof AuthAppPolarPortalRoute
   AuthAppPolarSubscriptionsRoute: typeof AuthAppPolarSubscriptionsRoute
@@ -229,6 +269,8 @@ interface AuthRouteRouteChildren {
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthAppDashboardRouteRoute: AuthAppDashboardRouteRoute,
+  AuthAppSpecialRoute: AuthAppSpecialRoute,
   AuthAppIndexRoute: AuthAppIndexRoute,
   AuthAppPolarPortalRoute: AuthAppPolarPortalRoute,
   AuthAppPolarSubscriptionsRoute: AuthAppPolarSubscriptionsRoute,
