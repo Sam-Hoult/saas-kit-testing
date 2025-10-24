@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as StaticRouteRouteImport } from './routes/_static/route'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiTestRouteImport } from './routes/api/test'
 import { Route as StaticDocsIndexRouteImport } from './routes/_static/docs/index'
 import { Route as AuthAppIndexRouteImport } from './routes/_auth/app/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
@@ -39,6 +40,11 @@ const AuthRouteRoute = AuthRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTestRoute = ApiTestRouteImport.update({
+  id: '/api/test',
+  path: '/api/test',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StaticDocsIndexRoute = StaticDocsIndexRouteImport.update({
@@ -124,6 +130,7 @@ const AuthAppDashboardDocsTutorialRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/test': typeof ApiTestRoute
   '/app/dashboard': typeof AuthAppDashboardRouteRouteWithChildren
   '/app/dashboard_old': typeof AuthAppDashboard_oldRoute
   '/app/special': typeof AuthAppSpecialRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/test': typeof ApiTestRoute
   '/app/dashboard_old': typeof AuthAppDashboard_oldRoute
   '/app/special': typeof AuthAppSpecialRoute
   '/docs/$name': typeof StaticDocsNameRoute
@@ -162,6 +170,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteRouteWithChildren
   '/_static': typeof StaticRouteRouteWithChildren
+  '/api/test': typeof ApiTestRoute
   '/_auth/app/dashboard': typeof AuthAppDashboardRouteRouteWithChildren
   '/_auth/app/dashboard_old': typeof AuthAppDashboard_oldRoute
   '/_auth/app/special': typeof AuthAppSpecialRoute
@@ -182,6 +191,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/api/test'
     | '/app/dashboard'
     | '/app/dashboard_old'
     | '/app/special'
@@ -200,6 +210,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/api/test'
     | '/app/dashboard_old'
     | '/app/special'
     | '/docs/$name'
@@ -219,6 +230,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_auth'
     | '/_static'
+    | '/api/test'
     | '/_auth/app/dashboard'
     | '/_auth/app/dashboard_old'
     | '/_auth/app/special'
@@ -240,6 +252,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   StaticRouteRoute: typeof StaticRouteRouteWithChildren
+  ApiTestRoute: typeof ApiTestRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -264,6 +277,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/test': {
+      id: '/api/test'
+      path: '/api/test'
+      fullPath: '/api/test'
+      preLoaderRoute: typeof ApiTestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_static/docs/': {
@@ -437,6 +457,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   StaticRouteRoute: StaticRouteRouteWithChildren,
+  ApiTestRoute: ApiTestRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

@@ -18,6 +18,10 @@
     "./queries/*": {
       "default": "./dist/queries/*.js",
       "types": "./dist/queries/*.d.ts"
+    },
+    "./drizzle/*": {
+      "default": "./dist/drizzle/*.js",
+      "types": "./dist/drizzle/*.d.ts"
     }
   },
   "scripts": {
