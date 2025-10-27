@@ -7,7 +7,6 @@ import { useState } from "react";
 import { AppSidebar } from "@/components/layout/app-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { DynamicBreadcrumb } from "@/components/layout/dynamic-breadcrumb";
-import { DynamicBreadcrumb } from "@/components/navigation/dynamic-breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { AccountDialog } from "@/components/auth/account-dialog";
 import { Button } from "@/components/ui/button";
