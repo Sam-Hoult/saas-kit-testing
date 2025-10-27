@@ -6,6 +6,7 @@ import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { AppSidebar } from "@/components/layout/app-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { DynamicBreadcrumb } from "@/components/layout/dynamic-breadcrumb";
 import { DynamicBreadcrumb } from "@/components/navigation/dynamic-breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { AccountDialog } from "@/components/auth/account-dialog";
@@ -38,6 +39,7 @@ function RouteComponent() {
               orientation="vertical"
               className="mr-2 data-[orientation=vertical]:h-4"
             />
+<DynamicBreadcrumb />
             <DynamicBreadcrumb />
           </div>
           <AccountDialog>
