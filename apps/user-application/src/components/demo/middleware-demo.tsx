@@ -34,12 +34,41 @@ export function MiddlewareDemo() {
     },
   });
 
+  // Cloudflare Pages Function mutation
+  const cloudflareMutation = useMutation({
+    mutationFn: async (exampleKey: string) => {
+      const response = await fetch("/api/core/v1/cloudflare-example", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ exampleKey }),
+      });
+
+      const data = await response.json() as { message?: string; error?: string; data?: unknown; timestamp?: string };
+
+      if (!response.ok) {
+        throw new Error(data.error || "Request failed");
+      }
+
+      return data;
+    },
+    onSuccess: (data) => {
+      console.log("Cloudflare Function executed successfully:", data);
+    },
+    onError: (error) => {
+      console.error("Cloudflare Function failed:", error);
+    },
+  });
+
   const handleExecute = () => {
     mutation.mutate({
       data: {
         exampleKey: "exampleValue",
       },
     });
+  };
+
+  const handleCloudflareFunction = () => {
+    cloudflareMutation.mutate(inputValue);
   };
 
   return (
@@ -103,6 +132,19 @@ export function MiddlewareDemo() {
                   )}
                   Execute Server Function
                 </Button>
+                <Button
+                  onClick={handleCloudflareFunction}
+                  disabled={cloudflareMutation.isPending || !inputValue.trim()}
+                  className="w-full"
+                  variant="outline"
+                >
+                  {cloudflareMutation.isPending ? (
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  ) : (
+                    <Server className="w-4 h-4 mr-2" />
+                  )}
+                  Call Cloudflare Function
+                </Button>
 
                 {/* Status Display */}
                 <div className="space-y-2">
@@ -130,6 +172,34 @@ export function MiddlewareDemo() {
                       <AlertDescription className="text-red-800 dark:text-red-200">
                         <strong>Error:</strong>{" "}
                         {mutation.error?.message || "Something went wrong"}
+                      </AlertDescription>
+                    </Alert>
+                  )}
+
+                  {cloudflareMutation.isPending && (
+                    <Alert>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <AlertDescription>
+                        Calling Cloudflare Pages Function...
+                      </AlertDescription>
+                    </Alert>
+                  )}
+
+                  {cloudflareMutation.isSuccess && (
+                    <Alert className="border-blue-500 bg-blue-200/10">
+                      <CheckCircle className="w-4 h-4 text-blue-800 dark:text-blue-400" />
+                      <AlertDescription className="text-blue-700 dark:text-blue-300">
+                        <strong>Cloudflare Function Success!</strong> {cloudflareMutation.data?.message}
+                      </AlertDescription>
+                    </Alert>
+                  )}
+
+                  {cloudflareMutation.isError && (
+                    <Alert className="border-red-200 bg-red-50 dark:bg-red-950/20">
+                      <AlertCircle className="w-4 h-4 text-red-600" />
+                      <AlertDescription className="text-red-800 dark:text-red-200">
+                        <strong>Cloudflare Function Error:</strong>{" "}
+                        {cloudflareMutation.error?.message || "Something went wrong"}
                       </AlertDescription>
                     </Alert>
                   )}

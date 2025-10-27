@@ -6,10 +6,10 @@ import {
 
 export class ExampleWorkflow extends WorkflowEntrypoint<
   Env,
-  ExampleWorkflowParmas
+  ExampleWorkflowParms
 > {
   async run(
-    event: Readonly<WorkflowEvent<ExampleWorkflowParmas>>,
+    event: Readonly<WorkflowEvent<ExampleWorkflowParms>>,
     step: WorkflowStep,
   ) {
     const randomNumber = await step.do("Get random number", async () => {

@@ -1,5 +1,7 @@
-interface ExampleWorkflowParmas {
+interface ExampleWorkflowParams {
   dataToPassIn;
 }
 
-interface Env extends Cloudflare.Env {}
+interface Env extends Cloudflare.Env {
+  EXAMPLE_WORKFLOW: Workflow<ExampleWorkflowParams>;
+}

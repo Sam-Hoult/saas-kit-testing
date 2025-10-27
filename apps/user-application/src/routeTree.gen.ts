@@ -20,6 +20,7 @@ import { Route as AuthAppSpecialRouteImport } from './routes/_auth/app/special'
 import { Route as AuthAppDashboard_oldRouteImport } from './routes/_auth/app/dashboard_old'
 import { Route as AuthAppDashboardRouteRouteImport } from './routes/_auth/app/dashboard/route'
 import { Route as AuthAppDashboardIndexRouteImport } from './routes/_auth/app/dashboard/index'
+import { Route as ApiCoreV1ExampleRouteImport } from './routes/api/core/v1/example'
 import { Route as AuthAppPolarSubscriptionsRouteImport } from './routes/_auth/app/polar/subscriptions'
 import { Route as AuthAppPolarPortalRouteImport } from './routes/_auth/app/polar/portal'
 import { Route as AuthAppDashboardTableRouteImport } from './routes/_auth/app/dashboard/table'
@@ -81,6 +82,11 @@ const AuthAppDashboardIndexRoute = AuthAppDashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthAppDashboardRouteRoute,
 } as any)
+const ApiCoreV1ExampleRoute = ApiCoreV1ExampleRouteImport.update({
+  id: '/api/core/v1/example',
+  path: '/api/core/v1/example',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthAppPolarSubscriptionsRoute =
   AuthAppPolarSubscriptionsRouteImport.update({
     id: '/app/polar/subscriptions',
@@ -134,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/app/dashboard/table': typeof AuthAppDashboardTableRoute
   '/app/polar/portal': typeof AuthAppPolarPortalRoute
   '/app/polar/subscriptions': typeof AuthAppPolarSubscriptionsRoute
+  '/api/core/v1/example': typeof ApiCoreV1ExampleRoute
   '/app/dashboard/': typeof AuthAppDashboardIndexRoute
   '/app/dashboard/docs/tutorial': typeof AuthAppDashboardDocsTutorialRoute
   '/app/polar/checkout/success': typeof AuthAppPolarCheckoutSuccessRoute
@@ -151,6 +158,7 @@ export interface FileRoutesByTo {
   '/app/dashboard/table': typeof AuthAppDashboardTableRoute
   '/app/polar/portal': typeof AuthAppPolarPortalRoute
   '/app/polar/subscriptions': typeof AuthAppPolarSubscriptionsRoute
+  '/api/core/v1/example': typeof ApiCoreV1ExampleRoute
   '/app/dashboard': typeof AuthAppDashboardIndexRoute
   '/app/dashboard/docs/tutorial': typeof AuthAppDashboardDocsTutorialRoute
   '/app/polar/checkout/success': typeof AuthAppPolarCheckoutSuccessRoute
@@ -172,6 +180,7 @@ export interface FileRoutesById {
   '/_auth/app/dashboard/table': typeof AuthAppDashboardTableRoute
   '/_auth/app/polar/portal': typeof AuthAppPolarPortalRoute
   '/_auth/app/polar/subscriptions': typeof AuthAppPolarSubscriptionsRoute
+  '/api/core/v1/example': typeof ApiCoreV1ExampleRoute
   '/_auth/app/dashboard/': typeof AuthAppDashboardIndexRoute
   '/_auth/app/dashboard/docs/tutorial': typeof AuthAppDashboardDocsTutorialRoute
   '/_auth/app/polar/checkout/success': typeof AuthAppPolarCheckoutSuccessRoute
@@ -192,6 +201,7 @@ export interface FileRouteTypes {
     | '/app/dashboard/table'
     | '/app/polar/portal'
     | '/app/polar/subscriptions'
+    | '/api/core/v1/example'
     | '/app/dashboard/'
     | '/app/dashboard/docs/tutorial'
     | '/app/polar/checkout/success'
@@ -209,6 +219,7 @@ export interface FileRouteTypes {
     | '/app/dashboard/table'
     | '/app/polar/portal'
     | '/app/polar/subscriptions'
+    | '/api/core/v1/example'
     | '/app/dashboard'
     | '/app/dashboard/docs/tutorial'
     | '/app/polar/checkout/success'
@@ -229,6 +240,7 @@ export interface FileRouteTypes {
     | '/_auth/app/dashboard/table'
     | '/_auth/app/polar/portal'
     | '/_auth/app/polar/subscriptions'
+    | '/api/core/v1/example'
     | '/_auth/app/dashboard/'
     | '/_auth/app/dashboard/docs/tutorial'
     | '/_auth/app/polar/checkout/success'
@@ -241,6 +253,7 @@ export interface RootRouteChildren {
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   StaticRouteRoute: typeof StaticRouteRouteWithChildren
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiCoreV1ExampleRoute: typeof ApiCoreV1ExampleRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -321,6 +334,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/dashboard/'
       preLoaderRoute: typeof AuthAppDashboardIndexRouteImport
       parentRoute: typeof AuthAppDashboardRouteRoute
+    }
+    '/api/core/v1/example': {
+      id: '/api/core/v1/example'
+      path: '/api/core/v1/example'
+      fullPath: '/api/core/v1/example'
+      preLoaderRoute: typeof ApiCoreV1ExampleRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_auth/app/polar/subscriptions': {
       id: '/_auth/app/polar/subscriptions'
@@ -438,6 +458,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRouteRoute: AuthRouteRouteWithChildren,
   StaticRouteRoute: StaticRouteRouteWithChildren,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiCoreV1ExampleRoute: ApiCoreV1ExampleRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

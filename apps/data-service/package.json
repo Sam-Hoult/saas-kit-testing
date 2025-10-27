@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "deploy": "wrangler deploy",
-    "dev": "wrangler dev --x-remote-bindings",
+    "dev": "wrangler dev",
     "start": "wrangler dev",
     "test": "vitest",
     "cf-typegen": "wrangler types --env-interface BaseEnv"
@@ -14,7 +14,7 @@
     "@types/node": "^22.15.19",
     "typescript": "^5.5.2",
     "vitest": "~3.2.0",
-    "wrangler": "^4.24.3"
+    "wrangler": "^4.45.0"
   },
   "dependencies": {
     "@repo/data-ops": "workspace:*",
