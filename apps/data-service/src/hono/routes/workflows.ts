@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import type { ExampleWorkflowParams } from "@/bindings";
 
 export const workflowsRoute = new Hono<{ Bindings: Env }>();
 

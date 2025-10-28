@@ -1,7 +1,10 @@
-interface ExampleWorkflowParams {
+export interface ExampleWorkflowParams {
   dataToPassIn;
 }
 
-interface Env extends Cloudflare.Env {
-  EXAMPLE_WORKFLOW: Workflow<ExampleWorkflowParams>;
+declare global {
+  interface Env extends Cloudflare.Env {
+    EXAMPLE_WORKFLOW: Workflow<ExampleWorkflowParams>;
+    WEBSOCKET_SERVER: DurableObjectNamespace<WebSocketServer>;
+  }
 }

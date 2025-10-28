@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:greenlinepos.notion.site)",
       "Bash(mkdir:*)",
-      "Bash(pnpm run build:*)"
+      "Bash(pnpm run build:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []

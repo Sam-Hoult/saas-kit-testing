@@ -3,13 +3,14 @@ import {
   WorkflowEvent,
   WorkflowStep,
 } from "cloudflare:workers";
+import type { ExampleWorkflowParams } from "@/bindings";
 
 export class ExampleWorkflow extends WorkflowEntrypoint<
   Env,
-  ExampleWorkflowParms
+  ExampleWorkflowParams
 > {
   async run(
-    event: Readonly<WorkflowEvent<ExampleWorkflowParms>>,
+    event: Readonly<WorkflowEvent<ExampleWorkflowParams>>,
     step: WorkflowStep,
   ) {
     const randomNumber = await step.do("Get random number", async () => {
