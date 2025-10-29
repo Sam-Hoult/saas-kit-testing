@@ -4,11 +4,12 @@ import { setAuth } from "@repo/data-ops/auth/server";
 import { initDatabase } from "@repo/data-ops/database/setup";
 import handler from "@tanstack/react-start/server-entry";
 import { env } from "cloudflare:workers";
+import { betterAuth } from "better-auth";
 
 console.log("[server-entry]: using custom server entry in 'src/server.ts'");
 
 export default {
-  fetch(request: Request) {
+  async fetch(request: Request) {
     const db = initDatabase({
       host: env.DATABASE_HOST,
       username: env.DATABASE_USERNAME,
@@ -25,10 +26,11 @@ export default {
         },
       },
       adapter: {
-        drizzleDb: db,
-        provider: "pg",
+        kyselyDb: db,
       },
     });
+
+
     return handler.fetch(request, {
       context: {
         fromFetch: true,

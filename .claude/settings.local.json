@@ -4,7 +4,11 @@
       "WebFetch(domain:greenlinepos.notion.site)",
       "Bash(mkdir:*)",
       "Bash(pnpm run build:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(pnpm remove:*)",
+      "Bash(pnpm add:*)",
+      "Bash(mv:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

@@ -1,6 +1,7 @@
+// Example queries converted to Kysely syntax
+// Uncomment and adapt when you add subscription schema to your database
+
 // import { getDb } from "@/database/setup";
-// import { subscriptions } from "@/drizzle/schema";
-// import { eq } from "drizzle-orm";
 
 // export async function updateSubscription(data: {
 //   userId: string;
@@ -13,37 +14,46 @@
 //   productId: string;
 // }) {
 //   const db = getDb();
+//
+//   // Kysely upsert using onConflict
 //   await db
-//     .insert(subscriptions)
+//     .insertInto('subscriptions')
 //     .values({
-//       userId: data.userId,
+//       user_id: data.userId,
 //       status: data.status,
-//       subscriptionId: data.subscriptionId,
-//       currentPeriodStart: data.currentPeriodStart,
-//       currentPeriodEnd: data.currentPeriodEnd,
-//       cancelAtPeriodEnd: data.cancelAtPeriodEnd,
-//       startedAt: data.startedAt,
-//       productId: data.productId,
+//       subscription_id: data.subscriptionId,
+//       current_period_start: data.currentPeriodStart,
+//       current_period_end: data.currentPeriodEnd,
+//       cancel_at_period_end: data.cancelAtPeriodEnd,
+//       started_at: data.startedAt,
+//       product_id: data.productId,
 //     })
-//     .onConflictDoUpdate({
-//       target: [subscriptions.userId],
-//       set: {
+//     .onConflict((oc) => oc
+//       .column('user_id')
+//       .doUpdateSet({
 //         status: data.status,
-//         subscriptionId: data.subscriptionId,
-//         currentPeriodStart: data.currentPeriodStart,
-//         currentPeriodEnd: data.currentPeriodEnd,
-//         cancelAtPeriodEnd: data.cancelAtPeriodEnd,
-//         startedAt: data.startedAt,
-//         productId: data.productId,
-//       },
-//     });
+//         subscription_id: data.subscriptionId,
+//         current_period_start: data.currentPeriodStart,
+//         current_period_end: data.currentPeriodEnd,
+//         cancel_at_period_end: data.cancelAtPeriodEnd,
+//         started_at: data.startedAt,
+//         product_id: data.productId,
+//       })
+//     )
+//     .execute();
 // }
 
 // export async function getSubscription(userId: string) {
 //   const db = getDb();
+//
+//   // Kysely select with where clause
 //   const subscription = await db
-//     .select()
-//     .from(subscriptions)
-//     .where(eq(subscriptions.userId, userId));
+//     .selectFrom('subscriptions')
+//     .selectAll()
+//     .where('user_id', '=', userId)
+//     .executeTakeFirst();
+//
 //   return subscription;
 // }
+
+export {};

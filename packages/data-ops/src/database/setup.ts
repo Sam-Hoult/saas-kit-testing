@@ -1,7 +1,10 @@
 // packages/data-ops/src/database/setup.ts
-import { drizzle } from "drizzle-orm/neon-http";
+import { Kysely } from 'kysely';
+import { NeonDialect } from 'kysely-neon';
+import { neon, neonConfig } from '@neondatabase/serverless';
+import { DB } from '@/kysely/generated-types';
 
-let db: ReturnType<typeof drizzle>;
+let db: Kysely<DB> | undefined;
 
 export function initDatabase(connection: {
   host: string;
@@ -14,11 +17,20 @@ export function initDatabase(connection: {
   }
 
   const connectionString = `postgres://${connection.username}:${connection.password}@${connection.host}/${connection.database}?sslmode=require`;
-  db = drizzle(connectionString);
+
+  // Configure Neon for serverless environments
+  neonConfig.fetchConnectionCache = true;
+
+  db = new Kysely<DB>({
+    dialect: new NeonDialect({
+      neon: neon(connectionString),
+    }),
+  });
+
   return db;
 }
 
-export function getDb() {
+export function getDb(): Kysely<DB> {
   if (!db) {
     throw new Error("Database not initialized");
   }
