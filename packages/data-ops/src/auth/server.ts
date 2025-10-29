@@ -12,7 +12,6 @@ export function setAuth(
 ) {
   // Better Auth accepts Kysely instance directly (as in previous working version)
   const { adapter, secret, socialProviders } = config;
-  console.log("[auth/server]: adapter", adapter);
 
   betterAuth = createBetterAuth({
     database: adapter.kyselyDb,
